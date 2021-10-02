@@ -1,11 +1,15 @@
 package com.api.book.entities;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
+
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 @Entity
 @Table(name = "books")
@@ -16,13 +20,15 @@ public class Book {
 	private int id;
 	@Column(name = "title")
 	private String title;
-	@Column(name =  "author")
-	private String author;
+	@OneToOne(cascade = CascadeType.ALL)
+	@JsonManagedReference
+	private Auther author;
+	
 	
 	public Book() {
 	}
 	
-	public Book(int id, String title, String author) {
+	public Book(int id, String title, Auther author) {
 		super();
 		this.id = id;
 		this.title = title;
@@ -40,10 +46,10 @@ public class Book {
 	public void setTitle(String title) {
 		this.title = title;
 	}
-	public String getAuthor() {
+	public Auther getAuthor() {
 		return author;
 	}
-	public void setAuthor(String author) {
+	public void setAuthor(Auther author) {
 		this.author = author;
 	}
 	@Override
